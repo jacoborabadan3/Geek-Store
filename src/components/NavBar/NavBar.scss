@@ -55,7 +55,7 @@
 
 // nav
 .Nav {
-    background: #000;
+    background: #091525;
     padding: 3rem;
 
     .nav {
@@ -72,15 +72,21 @@
 
     .nav__items {
         display: flex;
+        align-items: center;
         gap: 2rem;
 
-        .nav-li {
-
-            .nav-a {
-                color: #fff;
-                font-size: 2rem;
+        .nav__items-ul {
+            display: flex;
+            gap: 2rem;
+            .nav-li {
+                .nav-a {
+                    color: #fff;
+                    font-size: 2rem;
+                    &:hover {
+                        color: #b5b5b5;
+                    }
+                }
             }
-
         }
 
     }

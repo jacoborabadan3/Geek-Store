@@ -1,5 +1,5 @@
-import "../../index.scss"
 import "./NavBar.scss"
+import CartWidget from "../CartWidget/CartWidget";
 
 const NavBar = () => {
 
@@ -93,15 +93,18 @@ const NavBar = () => {
                 </section>
                 {/* navegación */}
                 <ul className="nav__items">
-                    <li className="nav-li">
-                        <a className="nav-a" href="#">Nosotros</a>
-                    </li>
-                    <li className="nav-li">
-                        <a className="nav-a" href="#">Productos</a>
-                    </li>
-                    <li className="nav-li">
-                        <a className="nav-a" href="#">Contacto</a>
-                    </li>
+                    <div className="nav__items-ul">
+                        <li className="nav-li">
+                            <a className="nav-a" href="#">Nosotros</a>
+                        </li>
+                        <li className="nav-li">
+                            <a className="nav-a" href="#">Productos</a>
+                        </li>
+                        <li className="nav-li">
+                            <a className="nav-a" href="#">Contacto</a>
+                        </li>
+                    </div>
+                    <CartWidget />
                 </ul>
             </div>
         </nav>
