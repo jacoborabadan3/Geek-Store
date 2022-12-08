@@ -4,10 +4,12 @@
     width: 5rem;
     height: 5rem;
     transform-style: preserve-3d;
-    animation: cubeRotate 2s infinite linear;
-    @keyframes cubeRotate {
-        0% {transform: rotateX(0deg) rotateY(0deg);}
-        100% {transform: rotateX(360deg) rotateY(-360deg);}
+    &:hover {
+        animation: cubeRotate 1500ms infinite linear;
+        @keyframes cubeRotate {
+            0% {transform: rotateX(360deg) rotateY(-360deg);}
+            100% {transform: rotateX(0deg) rotateY(0deg);}
+        }
     }
 
     .f {
@@ -78,14 +80,14 @@
         .nav__items-ul {
             display: flex;
             gap: 2rem;
-            .nav-li {
-                .nav-a {
-                    color: #fff;
-                    font-size: 2rem;
-                    &:hover {
-                        color: #b5b5b5;
-                    }
-                }
+            .navLink {
+                color: #fff;
+                font-size: 2rem;
+            }
+            .activeOption {
+                border-bottom: .2rem solid #fff;
+                font-size: 2rem;
+                color: #fff;
             }
         }
 

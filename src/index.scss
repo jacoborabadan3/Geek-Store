@@ -4,6 +4,7 @@ html {
     body {
         font-size: 1.6rem;
         font-family: Arial, Helvetica, sans-serif;
+        background-color: #f5f5f5;
     }
     //estilos globales
     * {
@@ -12,9 +13,14 @@ html {
         text-decoration: none;
     }
     h1 {font-size: 3.8rem;}
+    img {max-width: 100%;}
     .contenedor {width: min(90%, 120rem); margin: 0 auto;}
     .textCenter {text-align: center;}
     .section {margin: 4rem auto;}
     .fw300 {font-weight: 300;}
+    button {
+        padding: 1rem 2rem;
+        cursor: pointer;
+    }
 }
 *, *:before, *:after {box-sizing: inherit;}

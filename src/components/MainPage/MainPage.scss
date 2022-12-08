@@ -1,0 +1,21 @@
+.mainPage {
+    background: url('https://wallpaperaccess.com/full/1642415.jpg') center/cover;
+    height: 100vh;
+
+    .contentPage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+
+        .linkMainPage {
+            margin-bottom: 10rem;
+            button {
+                font-size: 2rem;
+            }
+        }
+
+    }
+
+}
