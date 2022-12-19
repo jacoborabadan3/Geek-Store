@@ -1,10 +1,32 @@
 import "./ItemCount.scss";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../../asyncMoke";
+import { valueContext } from "../../App";
 
-
+/** Componente : */
 const ItemCount = ({ stock, initial, onAdd }) => {
 
-    const [count, setCount] = useState(initial)
+    const { productId } = useParams();
+
+    const [count, setCount] = useState(initial);
+
+    const [newObject, setNewObject] = useState({});
+
+    const { title } = newObject
+
+    const { contextValue, setContextValue } = useContext(valueContext);
+
+    const isInCart = (id) => contextValue.some(item => item.title === id);
+
+    const addToCart = (title) => !isInCart(title) ? setContextValue([...contextValue, newObject]) : null
+
+    useEffect(() => {
+        getProductById(productId)
+            .then(Response => setNewObject(Response))
+    }, []);
+
+    console.log(isInCart(title));
 
     const increment = () => {
         if (count < stock) {
@@ -17,7 +39,6 @@ const ItemCount = ({ stock, initial, onAdd }) => {
             setCount(count - 1)
         }
     }
-
 
     return (
         <div className="purchase">
@@ -40,12 +61,9 @@ const ItemCount = ({ stock, initial, onAdd }) => {
                     </svg>
                 </button>
             </section>
-
-            <button className="carrito-btn"
-                onClick={() => onAdd(count)}>
-                Agregar al carrito
-            </button>
-
+            {!isInCart(title) ?
+                (<button className="carrito-btn" onClick={() => addToCart(title)}>Agregar al carrito</button>) :
+                (<button>Finalizar Compra</button>)}
         </div>
 
     );

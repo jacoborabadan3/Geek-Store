@@ -1,6 +1,10 @@
 import "./CartWidget.scss";
+import { useContext } from "react";
+import { valueContext } from "../../App";
 
 const CartWidget = ({number}) => {
+
+    const {contextValue} = useContext(valueContext);
 
     return (
 
@@ -12,7 +16,7 @@ const CartWidget = ({number}) => {
                 <path d="M17 17h-11v-14h-2" />
                 <path d="M6 5l14 1l-1 7h-13" />
             </svg>
-            <div className="cartWidget__count">{number}</div>
+            <div className="cartWidget__count">{contextValue.length}</div>
         </div>
 
     );

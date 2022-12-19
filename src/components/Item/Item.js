@@ -1,8 +1,6 @@
 import "./Item.scss"
-import ItemCount from "../ItemCount/ItemCount"
 import { Link } from "react-router-dom";
 
-export const callback = cantidad => console.log(cantidad);
 
 const Item = ({ product }) => {
     return (
@@ -13,7 +11,7 @@ const Item = ({ product }) => {
             <div className="contentCards">
                 <h2>{product.title}</h2>
                 <Link
-                    to={`/producto/${product.id}`} className="btn">
+                    to={`/producto/${product.category}/${product.id}`} className="btn">
                     Ver detalles
                 </Link>
             </div>

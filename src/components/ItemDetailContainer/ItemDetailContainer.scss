@@ -13,6 +13,10 @@
         flex-basis: calc(70%);
         display: inline-flex;
         justify-content: center;
+        img {
+            height: 44rem;
+            width: 44rem;
+        }
     }
 
     .itemContent {
@@ -27,4 +31,17 @@
         gap: 2rem;
     }
 
+}
+
+
+.purchaseBtn {
+    font-size: 2rem;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-radius: .4rem;
+    &:hover {
+        box-shadow: 0 0 .8rem #000;
+    }
 }

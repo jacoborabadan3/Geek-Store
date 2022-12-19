@@ -1,17 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { getProductById } from "../../asyncMoke";
 import { Link, useParams } from "react-router-dom";
 import "./ItemDetailContainer.scss";
 import ItemCount from "../ItemCount/ItemCount";
-import { callback } from "../Item/Item";
 import NavBar from "../NavBar/NavBar";
 import Loading from "../Loading/Loading";
 
 const ItemDetailContainer = () => {
 
     const [product, setProduct] = useState({});
+
     const [loading, setLoading] = useState(true);
+
     const { productId } = useParams();
+
+    const [quantityToAdd, setQuatityToAdd] = useState(0);
+
+    const cart_Widget = count => {
+        setQuatityToAdd(count);
+    };
 
     useEffect(() => {
         getProductById(productId)
@@ -19,12 +26,14 @@ const ItemDetailContainer = () => {
             .finally(() => {
                 setLoading(false)
             })
-    }, []);
-
-    console.log(product);
+    }, [productId]);
 
     if (loading) {
-        return <Loading />
+        return (
+            <>
+                <Loading />
+            </>
+        )
     };
 
     return (
@@ -49,7 +58,8 @@ const ItemDetailContainer = () => {
                         <h2>{product.title}</h2>
                         <h2>${product.precio}</h2>
                         <h2>Stock:{product.stock}</h2>
-                        <ItemCount initial={0} stock={10} onAdd={callback} />
+                        <ItemCount initial={0} stock={10} onAdd={cart_Widget} />
+                        {/* {quantityToAdd !== 0 ? (<Link to={'/cart'} className="purchaseBtn">Finalizar Compra</Link>) : null} */}
                     </div>
                 </section>
             </main>
