@@ -1,32 +1,24 @@
 import "./ItemCount.scss";
-import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { getProductById } from "../../asyncMoke";
-import { valueContext } from "../../App";
+import { useState, useContext, useEffect } from "react";
+import { cartContext } from "../../context/CartContext";
+import { getProductById, Product } from "../../asyncMoke";
+import { Link, useParams } from "react-router-dom";
 
 /** Componente : */
 const ItemCount = ({ stock, initial, onAdd }) => {
 
     const { productId } = useParams();
 
-    const [count, setCount] = useState(initial);
-
-    const [newObject, setNewObject] = useState({});
-
-    const { title } = newObject
-
-    const { contextValue, setContextValue } = useContext(valueContext);
-
-    const isInCart = (id) => contextValue.some(item => item.title === id);
-
-    const addToCart = (title) => !isInCart(title) ? setContextValue([...contextValue, newObject]) : null
+    const [productItem, setProductItem] = useState({});
 
     useEffect(() => {
         getProductById(productId)
-            .then(Response => setNewObject(Response))
+            .then(Response => setProductItem(Response));
     }, []);
 
-    console.log(isInCart(title));
+    const [count, setCount] = useState(initial);
+
+    const { isInCart } = useContext(cartContext);
 
     const increment = () => {
         if (count < stock) {
@@ -61,9 +53,25 @@ const ItemCount = ({ stock, initial, onAdd }) => {
                     </svg>
                 </button>
             </section>
-            {!isInCart(title) ?
-                (<button className="carrito-btn" onClick={() => addToCart(title)}>Agregar al carrito</button>) :
-                (<button>Finalizar Compra</button>)}
+            {
+                !isInCart(productItem.id) ?
+                    (
+                        <button
+                            className="carrito-btn"
+                            onClick={() => onAdd(count)}>
+                            Agregar al carrito
+                        </button>
+                    )
+                    :
+                    (
+                        <Link
+                        className="btn-Purchase"
+                        >
+                            Finalizar Compra
+                        </Link>
+                    )
+            }
+
         </div>
 
     );

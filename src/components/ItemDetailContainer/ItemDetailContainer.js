@@ -1,10 +1,16 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useContext } from "react";
 import { getProductById } from "../../asyncMoke";
 import { Link, useParams } from "react-router-dom";
 import "./ItemDetailContainer.scss";
 import ItemCount from "../ItemCount/ItemCount";
 import NavBar from "../NavBar/NavBar";
 import Loading from "../Loading/Loading";
+//CartContext
+import { cartContext } from "../../context/CartContext";
+import Item from "../Item/Item";
+
+
+
 
 const ItemDetailContainer = () => {
 
@@ -16,8 +22,12 @@ const ItemDetailContainer = () => {
 
     const [quantityToAdd, setQuatityToAdd] = useState(0);
 
+    const { contextValue, addToCart, setContextValue } = useContext(cartContext);
+
     const cart_Widget = count => {
         setQuatityToAdd(count);
+        addToCart(product);
+        setContextValue([...contextValue, {...product, cantidad: count}]);
     };
 
     useEffect(() => {
@@ -59,7 +69,6 @@ const ItemDetailContainer = () => {
                         <h2>${product.precio}</h2>
                         <h2>Stock:{product.stock}</h2>
                         <ItemCount initial={0} stock={10} onAdd={cart_Widget} />
-                        {/* {quantityToAdd !== 0 ? (<Link to={'/cart'} className="purchaseBtn">Finalizar Compra</Link>) : null} */}
                     </div>
                 </section>
             </main>

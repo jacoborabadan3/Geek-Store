@@ -5,25 +5,24 @@ import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailCont
 import MainPage from "./components/MainPage/MainPage";
 import Nosotros from "./components/Nosotros/Nosotros";
 import Contacto from "./components/Contacto/Contacto";
-import { createContext } from "react";
-import { useState } from "react";
-
-export const valueContext = createContext();
+import CartItems from "./components/CartItems/CartItems";
+import { CartContextProvider } from "./context/CartContext";
 
 function App() {
 
-  const [contextValue, setContextValue] = useState([]);
-  
-  console.log(contextValue);
-
   return (
     <div className="App">
-      <valueContext.Provider value={{ contextValue, setContextValue }}>
+      <CartContextProvider>
         <BrowserRouter>
           <Routes>
             <Route
               path="/"
               element={<MainPage />}
+            />
+
+            <Route
+              path="cartItems"
+              element={<CartItems />}
             />
 
             <Route
@@ -53,7 +52,7 @@ function App() {
           </Routes>
 
         </BrowserRouter>
-      </valueContext.Provider>
+      </CartContextProvider>
     </div >
   );
 }
