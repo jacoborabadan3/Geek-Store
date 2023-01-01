@@ -2,7 +2,9 @@ import "./NavBar.scss"
 import CartWidget from "../CartWidget/CartWidget";
 import { Link, NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ colorsPurchaseStyle }) => {
+
+    let colorsStyle = colorsPurchaseStyle;
 
     return (
         <>
@@ -13,7 +15,7 @@ const NavBar = () => {
                         <p>5584665885</p>
                     </div>
                     <div className="navLogin">
-                        <Link>Iniciar Sesión / Registrarse</Link>
+                        <Link to={'/LogInPage'}>Iniciar Sesión / Registrarse</Link>
                     </div>
                 </div>
             </div>
@@ -106,35 +108,42 @@ const NavBar = () => {
                         </Link>
                         <h1>Cube Store</h1>
                     </section>
+                    {/* input search */}
                     <section className="navForm">
                         <form className="form">
                             <input type='search' placeholder="Buscar en la tienda" />
                             <input type='submit' value='Buscar' />
                         </form>
                     </section>
-                    {/* navegación */}
-                    <ul className="nav__items">
-                        <div className="nav__items-ul">
-                            <NavLink
-                                to={'/nosotros'}
-                                className={({ isActive }) => isActive ? 'activeOption' : 'navLink'}>
-                                Nosotros
-                            </NavLink>
-                            <NavLink
-                                to={'/producto'}
-                                className={({ isActive }) => isActive ? 'activeOption' : 'navLink'}>
-                                Productos
-                            </NavLink>
-                            <NavLink
-                                to={'/contacto'}
-                                className={({ isActive }) => isActive ? 'activeOption' : 'navLink'}>
-                                Contacto
-                            </NavLink>
-                        </div>
-                        <CartWidget number={0} />
-                    </ul>
+                    {/* cart-Widget */}
+                    {/* {user ? <h1 style={{color: '#fff'}}>No hay nada</h1> : <CartWidget />} */}
+                    <CartWidget />
+
                 </div>
             </nav>
+
+            {/* navegación */}
+            <ul className=" ul-Nav">
+                <div className="contenedor containerMainUl">
+                    <div className={`container-ul ${colorsStyle}`}>
+                        <NavLink
+                            to={'/nosotros'}
+                            className={({ isActive }) => isActive ? 'activeOption' : 'navLink'}>
+                            Nosotros
+                        </NavLink>
+                        <NavLink
+                            to={'/producto'}
+                            className={({ isActive }) => isActive ? 'activeOption' : 'navLink'}>
+                            Tienda
+                        </NavLink>
+                        <NavLink
+                            to={'/contacto'}
+                            className={({ isActive }) => isActive ? 'activeOption' : 'navLink'}>
+                            Contacto
+                        </NavLink>
+                    </div>
+                </div>
+            </ul>
         </>
     );
 

@@ -7,52 +7,67 @@ import Nosotros from "./components/Nosotros/Nosotros";
 import Contacto from "./components/Contacto/Contacto";
 import CartItems from "./components/CartItems/CartItems";
 import { CartContextProvider } from "./context/CartContext";
+import LogInPage from "./components/LogInPage/LogInPage";
+import { AuthProvider } from "./context/AuthContext";
+import Checkout from "./components/CheckOut/Checkout";
 
 function App() {
 
   return (
     <div className="App">
-      <CartContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={<MainPage />}
-            />
+      <AuthProvider>
+        <CartContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={<MainPage />}
+              />
 
-            <Route
-              path="cartItems"
-              element={<CartItems />}
-            />
+              <Route
+                path="/checkout"
+                element={<Checkout />}
+              />
 
-            <Route
-              path="/nosotros"
-              element={<Nosotros />}
-            />
+              <Route
+                path="/cartItems"
+                element={<CartItems />}
+              />
 
-            <Route
-              path="/producto"
-              element={<ItemListContainer />}
-            />
+              <Route
+                path="/LogInPage"
+                element={<LogInPage />}
+              />
 
-            <Route
-              path="/producto/:filterProduct"
-              element={<ItemListContainer />}
-            />
+              <Route
+                path="/nosotros"
+                element={<Nosotros />}
+              />
 
-            <Route
-              path="/producto/:category/:productId"
-              element={<ItemDetailContainer />}
-            />
+              <Route
+                path="/producto"
+                element={<ItemListContainer />}
+              />
 
-            <Route
-              path="/contacto"
-              element={<Contacto />}
-            />
-          </Routes>
+              <Route
+                path="/producto/:filterProduct"
+                element={<ItemListContainer />}
+              />
 
-        </BrowserRouter>
-      </CartContextProvider>
+              <Route
+                path="/producto/:category/:productId"
+                element={<ItemDetailContainer />}
+              />
+
+              <Route
+                path="/contacto"
+                element={<Contacto />}
+              />
+            </Routes>
+
+          </BrowserRouter>
+        </CartContextProvider>
+      </AuthProvider>
     </div >
   );
 }

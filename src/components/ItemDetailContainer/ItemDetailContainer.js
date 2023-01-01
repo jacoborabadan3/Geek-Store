@@ -7,8 +7,9 @@ import NavBar from "../NavBar/NavBar";
 import Loading from "../Loading/Loading";
 //CartContext
 import { cartContext } from "../../context/CartContext";
-import Item from "../Item/Item";
-
+//firebase
+import { getDoc, doc } from "firebase/firestore";
+import { db } from "../../services/firebase/firebaseConfig";
 
 
 
@@ -27,15 +28,32 @@ const ItemDetailContainer = () => {
     const cart_Widget = count => {
         setQuatityToAdd(count);
         addToCart(product);
-        setContextValue([...contextValue, {...product, cantidad: count}]);
+        setContextValue(
+            [...contextValue, { ...product, cantidad: count }]
+        );
     };
 
     useEffect(() => {
-        getProductById(productId)
-            .then(Response => setProduct(Response))
+
+        const productRef = doc(db, 'Product', productId)
+
+        getDoc(productRef)
+
+            .then(Object => {
+
+                const objectProduct = Object.data();
+
+                const objectProductAdapted = { id: Object.id, ...objectProduct };
+
+                setProduct(objectProductAdapted);
+
+            })
+
             .finally(() => {
                 setLoading(false)
-            })
+            });
+
+
     }, [productId]);
 
     if (loading) {
@@ -45,6 +63,8 @@ const ItemDetailContainer = () => {
             </>
         )
     };
+
+    const { stock } = product
 
     return (
         <>
@@ -68,7 +88,7 @@ const ItemDetailContainer = () => {
                         <h2>{product.title}</h2>
                         <h2>${product.precio}</h2>
                         <h2>Stock:{product.stock}</h2>
-                        <ItemCount initial={0} stock={10} onAdd={cart_Widget} />
+                        <ItemCount initial={1} stock={stock} onAdd={cart_Widget} />
                     </div>
                 </section>
             </main>

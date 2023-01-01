@@ -1,14 +1,16 @@
 import "./ItemListContainer.scss"
 import { useState, useEffect } from "react";
 import ItemList from "../ItemList/ItemList";
-import { getProduct, getProductByCategory } from "../../asyncMoke";
 import NavBar from "../NavBar/NavBar";
 import Loading from "../Loading/Loading";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
+//firebase
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { db } from "../../services/firebase/firebaseConfig";
 
 /** Componente: */
-const ItemListContainer = ({ greeting }) => {
+const ItemListContainer = () => {
 
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,34 +19,26 @@ const ItemListContainer = ({ greeting }) => {
 
     useEffect(() => {
         setLoading(true)
-        if (filterProduct) {
-            // getProduct()
-            //     .then((response) => {
-            //         setProduct(response)
-            //     }).finally(() => {
-            //         setLoading(false)
-            //     })
-            getProductByCategory(filterProduct)
-                .then((response) => {
-                    setProduct(response)
-                }).finally(() => {
-                    setLoading(false)
-                })
-        } else {
-            // setLoading(true)
-            // getProductByCategory(filterProduct)
-            //     .then((response) => {
-            //         setProduct(response)
-            //     }).finally(() => {
-            //         setLoading(false)
-            //     })
-            getProduct()
-                .then((response) => {
-                    setProduct(response)
-                }).finally(() => {
-                    setLoading(false)
-                })
-        }
+
+        const productCollection = filterProduct
+            ? query(collection(db, 'Product'), where('category', '==', filterProduct))
+            : collection(db, 'Product')
+
+        getDocs(productCollection)
+            .then(Response => {
+
+                const productAdapted = Response.docs.map(doc => {
+
+                    const objectAdapted = doc.data();
+
+                    return { id: doc.id, ...objectAdapted };
+
+                });
+
+                setProduct(productAdapted);
+            })
+            .finally(() => setLoading(false))
+
     }, [filterProduct])
 
     if (loading) {

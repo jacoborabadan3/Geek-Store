@@ -1,8 +1,11 @@
 import "./ItemCount.scss";
 import { useState, useContext, useEffect } from "react";
 import { cartContext } from "../../context/CartContext";
-import { getProductById, Product } from "../../asyncMoke";
 import { Link, useParams } from "react-router-dom";
+import { FaPlus, FaMinus } from "react-icons/fa";
+//firebase
+import { db } from "../../services/firebase/firebaseConfig";
+import { getDoc, doc } from "firebase/firestore";
 
 /** Componente : */
 const ItemCount = ({ stock, initial, onAdd }) => {
@@ -11,9 +14,16 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
     const [productItem, setProductItem] = useState({});
 
+
     useEffect(() => {
-        getProductById(productId)
+
+        const productRef = doc(db, 'Product', productId);
+
+        getDoc(productRef)
+
             .then(Response => setProductItem(Response));
+
+
     }, []);
 
     const [count, setCount] = useState(initial);
@@ -38,38 +48,28 @@ const ItemCount = ({ stock, initial, onAdd }) => {
             <section className="mainBtn">
                 <button className="btnSymbol"
                     onClick={() => decrement()}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
+                    <FaMinus />
                 </button>
                 <h2 className="numberCount">{count}</h2>
                 <button className="btnSymbol"
                     onClick={() => increment()}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
+                    <FaPlus />
                 </button>
             </section>
             {
                 !isInCart(productItem.id) ?
-                    (
-                        <button
-                            className="carrito-btn"
-                            onClick={() => onAdd(count)}>
-                            Agregar al carrito
-                        </button>
-                    )
+                    <button
+                        className="carrito-btn"
+                        onClick={() => onAdd(count)}>
+                        Agregar al carrito
+                    </button>
                     :
-                    (
-                        <Link
+                    <Link
+                        to={'/cartItems'}
                         className="btn-Purchase"
-                        >
-                            Finalizar Compra
-                        </Link>
-                    )
+                    >
+                        Finalizar Compra
+                    </Link>
             }
 
         </div>

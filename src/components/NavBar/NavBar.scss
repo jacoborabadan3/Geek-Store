@@ -53,11 +53,11 @@
 
 }
 
-// nav
+// Nav Log-In
 .nav-Contacto-Login {
     background: #fff;
     padding: 1rem;
-    border-bottom: .2rem solid yellow;
+    border-bottom: .4rem solid yellow;
 
     .nav-Contacto-Login__content {
         display: flex;
@@ -82,11 +82,6 @@
                 }
             }
         }
-
-        .navLogin {
-
-        }
-
     }
 
 }
@@ -108,6 +103,7 @@
         h1 {color: #fff;}
     }
 
+    // input search
     .navForm {
         .form {
             display: inline-flex;
@@ -124,25 +120,41 @@
         }
     }
 
-    .nav__items {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        .nav__items-ul {
-            display: flex;
-            gap: 2rem;
-            .navLink {
-                color: #fff;
-                font-size: 2rem;
-            }
-            .activeOption {
-                border-bottom: .2rem solid #fff;
-                font-size: 2rem;
-                color: #fff;
-            }
-        }
-    }
+}
 
 }
 
+// Nav ul
+.ul-Nav {
+    background: #fff;
+    padding: 1rem 2rem;
+    border-top: .4rem solid red;
+    .containerMainUl {
+        .container-ul {
+            display: flex;
+            justify-content: space-between;
+            .navLink {
+                color: #000;
+                font-size: 2rem;
+                // &:nth-child(1) {border-bottom: .4rem solid green;}
+                // &:nth-child(2) {border-bottom: .4rem solid blue;}
+                // &:nth-child(3) {border-bottom: .4rem solid orange;}
+
+            }
+            .activeOption {
+                color: #000;
+                font-size: 2rem;
+                &:nth-child(1) {border-bottom: .4rem solid green;}
+                &:nth-child(2) {border-bottom: .4rem solid blue;}
+                &:nth-child(3) {border-bottom: .4rem solid orange;}
+            }
+        }
+        .colorsPurchase {
+            a {
+                &:nth-child(1) {border-bottom: .4rem solid green;}
+                &:nth-child(2) {border-bottom: .4rem solid blue;}
+                &:nth-child(3) {border-bottom: .4rem solid orange;}
+            }
+        }
+    }
 }

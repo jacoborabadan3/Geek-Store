@@ -7,11 +7,7 @@ export const CartContextProvider = ({ children }) => {
 
     const [contextValue, setContextValue] = useState([]);
 
-    console.log(contextValue);
-
-    const isInCart = (id) => {
-        return contextValue.some(Object => Object.id === id);
-    };
+    const isInCart = (id) => contextValue.some(Object => Object.id === id);
 
     const addToCart = (item) => {
         if (!isInCart(item.id)) {
@@ -21,10 +17,19 @@ export const CartContextProvider = ({ children }) => {
 
     const getQuantity = () => {
         let totalQuantity = 0;
-
         contextValue.forEach(Element => totalQuantity += Element.cantidad);
-
         return totalQuantity;
+    };
+
+    const finalPrice = () => contextValue.length !== 0 && contextValue.map(element => Number(element.precio * element.cantidad)).reduce((a, b) => a + b)
+
+    const removeItem = (id) => {
+        const updateItems = contextValue.filter(Element => Element.id !== id);
+        setContextValue(updateItems);
+    };
+
+    const clearCart = () => {
+        setContextValue([])
     };
 
     return (
@@ -34,8 +39,11 @@ export const CartContextProvider = ({ children }) => {
                     contextValue,
                     setContextValue,
                     addToCart,
-                    isInCart, 
-                    getQuantity
+                    isInCart,
+                    getQuantity,
+                    removeItem,
+                    finalPrice,
+                    clearCart
                 }
             }>
             {children}

@@ -1,0 +1,73 @@
+.banners {
+    background: center/cover no-repeat;
+    height: 50rem;
+    animation: bannerAnimation 4s infinite linear;
+
+    @keyframes bannerAnimation {
+        0% {
+            background-image: url('https://media.sketchfab.com/models/b053a125a2c14db1a49db1c642a373b4/thumbnails/a95258292cc64397b372d6d8f3465598/eaf2c2488d7b4858a6f02f97533fc81c.jpeg');
+        }
+
+        33% {
+            background-image: url('https://media.sketchfab.com/models/b053a125a2c14db1a49db1c642a373b4/thumbnails/a95258292cc64397b372d6d8f3465598/eaf2c2488d7b4858a6f02f97533fc81c.jpeg');
+        }
+
+        34% {
+            background-image: url('https://www.speedcubesmx.com/wp-content/uploads/2018/03/10_d_descuento_1400x-1350x494.png');
+        }
+
+        66% {
+            background-image: url('https://www.speedcubesmx.com/wp-content/uploads/2018/03/10_d_descuento_1400x-1350x494.png');
+        }
+
+        67% {
+            background-image: url('https://cloudfront-us-east-1.images.arcpublishing.com/culturacolectiva/7LMGAG3BSFGH7BNEEFYYHB4UII.jpg');
+        }
+
+        100% {
+            background-image: url('https://cloudfront-us-east-1.images.arcpublishing.com/culturacolectiva/7LMGAG3BSFGH7BNEEFYYHB4UII.jpg');
+        }
+
+    }
+}
+
+.banner-2 {
+    background-image: url('https://historia.nationalgeographic.com.es/medio/2022/01/11/imagen-de-un-cubo-de-rubik_c0f23e4e_800x533.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 30rem;
+    .banner-2__content {
+        padding: 2rem;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        .btn-MainPage {
+            color: #fff;
+            background-color: #091525;
+            font-size: 2.5rem;
+            padding: 1rem 4rem;
+            margin-top: 4rem;
+            border-radius: .4rem;
+        }
+    }
+}
+
+
+.envios {
+    display: flex;
+    justify-content: space-between;
+    .envios__item {
+        border: .1rem solid #091525;
+        padding: 1rem 2rem;
+        border-radius: .5rem;
+        .iconMain {
+            font-size: 3rem;
+        }
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+}
